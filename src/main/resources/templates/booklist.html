@@ -1,39 +1,41 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>kirjakauppa</title>
-</head>
-<body>
+  </head>
+  <body>
+    <h1>Booklist</h1>
 
-<h1>Booklist</h1>
-
-<table border="1">
-    <thead>
+    <table border="1">
+      <thead>
         <tr>
-            <th>Author</th>
-            <th>Title</th>
-            <th>ISBN</th>
-            <th>Publishing Year</th>
-            <th>Price</th>
+          <th>Author</th>
+          <th>Title</th>
+          <th>ISBN</th>
+          <th>Publishing Year</th>
+          <th>Price</th>
         </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
         <!-- Iterate over the list of books -->
         <tr th:each="book : ${books}">
-            <td th:text="${book.author}"></td>
-            <td th:text="${book.title}"></td>
-            <td th:text="${book.isbn}"></td>
-            <td th:text="${book.year}"></td>
-            <td th:text="${book.price}"></td>
-            <td>       
-                 <form th:action="@{/deletebook/{id}(id=${book.id})}" method="post">
-                <input type="submit" value="Delete"/>
+          <td th:text="${book.author}"></td>
+          <td th:text="${book.title}"></td>
+          <td th:text="${book.isbn}"></td>
+          <td th:text="${book.year}"></td>
+          <td th:text="${book.price}"></td>
+          <td>
+            <form th:action="@{/deletebook/{id}(id=${book.id})}" method="post">
+              <input type="submit" value="Delete" />
             </form>
-        </td>
-        </tr>
-    </tbody>
-</table>
-<a href="/addbook">add book</a>
-</body>
+            <form th:action="@{'/editbook/' + ${book.id}}" method="get">
+                <button type="submit">Edit</button>
+            </form>
+          </td>
+        </tr>   
+      </tbody>
+    </table>
+    <a href="/addbook">add book</a>
+  </body>
 </html>

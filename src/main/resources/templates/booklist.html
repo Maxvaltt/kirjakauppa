@@ -26,9 +26,14 @@
             <td th:text="${book.isbn}"></td>
             <td th:text="${book.year}"></td>
             <td th:text="${book.price}"></td>
+            <td>       
+                 <form th:action="@{/deletebook/{id}(id=${book.id})}" method="post">
+                <input type="submit" value="Delete"/>
+            </form>
+        </td>
         </tr>
     </tbody>
 </table>
-
+<a href="/addbook">add book</a>
 </body>
 </html>

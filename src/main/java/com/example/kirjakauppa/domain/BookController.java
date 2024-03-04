@@ -2,6 +2,7 @@ package com.example.kirjakauppa.domain;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,11 +15,14 @@ import io.micrometer.common.lang.NonNull;
 
 
 
-
 @Controller
 public class BookController {
 
-    private final BookRepository bookRepository;
+    @Autowired
+    private BookRepository bookRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     public BookController(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
@@ -34,6 +38,7 @@ public class BookController {
     @GetMapping("/addbook")
     public String showAddBookForm(Model model) {
         model.addAttribute("book", new book());
+        model.addAttribute("categories",categoryRepository.findAll());
         return "addbook";
     }
 
@@ -63,11 +68,11 @@ public class BookController {
         }
     }
 
-   
+    @SuppressWarnings("null")
     @PostMapping("/updatebook")
     public String updateBook(@ModelAttribute @NonNull book updatedBook) {
         bookRepository.save(updatedBook);
         return "redirect:/booklist";
     }
-    
+
 }

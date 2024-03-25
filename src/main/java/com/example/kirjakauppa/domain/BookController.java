@@ -51,7 +51,7 @@ public class BookController {
     }
 
     @SuppressWarnings("null")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/deletebook/{id}")
     public String deleteBook(@PathVariable Long id) {
         bookRepository.deleteById(id);
@@ -59,8 +59,8 @@ public class BookController {
     }
 
     @SuppressWarnings("null")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/editbook/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public String showEditBookForm(@PathVariable Long id, Model model) {
         Optional<book> optionalBook = bookRepository.findById(id);
         if (optionalBook.isPresent()) {

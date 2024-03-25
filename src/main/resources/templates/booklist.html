@@ -29,16 +29,16 @@
           <td th:text="${book.category.name}"></td>
           
 
-            <td sec:authorize="hasRole('ADMIN')" th:action="@{/deletebook/{id}(id=${book.id})}" method="post">
+            <td sec:authorize="hasAuthority('ADMIN')" th:action="@{/deletebook/{id}(id=${book.id})}" method="post">
               <input type="submit" value="Delete" /></td>
-            <td sec:authorize="hasRole('ADMIN')" th:action="@{'/editbook/' + ${book.id}}" method="get">
+            <td sec:authorize="hasAuthority('ADMIN')" th:action="@{'/editbook/' + ${book.id}}" method="get">
                 <button type="submit">Edit</button></td>
             
           
         </tr>   
       </tbody>
     </table>
-    <td sec:authorize="hasRole('ADMIN')"><a href="/addbook">add book</a></td>
+    <td sec:authorize="hasAuthority('ADMIN')"><a href="/addbook">add book</a></td>
     <a href="/categorylist">To categories</a>
     <form th:action="@{/logout}" method="post">
       <input type="submit" value="Sign Out"/>

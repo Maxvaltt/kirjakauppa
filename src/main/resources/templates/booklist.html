@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
   <head>
     <meta charset="UTF-8" />
     <title>kirjakauppa</title>
   </head>
   <body>
     <h1>Booklist</h1>
-
+    <h1>Hello <span sec:authentication="name"></span>!</h1>
     <table border="1">
       <thead>
         <tr>
@@ -27,18 +27,21 @@
           <td th:text="${book.year}"></td>
           <td th:text="${book.price}"></td>
           <td th:text="${book.category.name}"></td>
-          <td>
-            <form th:action="@{/deletebook/{id}(id=${book.id})}" method="post">
-              <input type="submit" value="Delete" />
-            </form>
-            <form th:action="@{'/editbook/' + ${book.id}}" method="get">
-                <button type="submit">Edit</button>
-            </form>
-          </td>
+          
+
+            <td sec:authorize="hasRole('ADMIN')" th:action="@{/deletebook/{id}(id=${book.id})}" method="post">
+              <input type="submit" value="Delete" /></td>
+            <td sec:authorize="hasRole('ADMIN')" th:action="@{'/editbook/' + ${book.id}}" method="get">
+                <button type="submit">Edit</button></td>
+            
+          
         </tr>   
       </tbody>
     </table>
-    <a href="/addbook">add book</a>
+    <td sec:authorize="hasRole('ADMIN')"><a href="/addbook">add book</a></td>
     <a href="/categorylist">To categories</a>
+    <form th:action="@{/logout}" method="post">
+      <input type="submit" value="Sign Out"/>
+     </form>
   </body>
 </html>

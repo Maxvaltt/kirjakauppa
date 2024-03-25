@@ -29,6 +29,9 @@ public class book {
     @JsonIgnoreProperties("books")
     private Category category;
 
+    public book() {
+    }
+
     public book(String title, String author, int year, int isbn, int price, Category category) {
         this.title = title;
         this.author = author;
@@ -46,8 +49,7 @@ public class book {
         this.category = category;
     }
 
-    public book() {
-    }
+
 
     public String getTitle() {
         return title;

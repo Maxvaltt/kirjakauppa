@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Bean;
 import com.example.kirjakauppa.domain.BookRepository;
 import com.example.kirjakauppa.domain.book;
 import com.example.kirjakauppa.domain.CategoryRepository;
+import com.example.kirjakauppa.domain.User;
+import com.example.kirjakauppa.domain.UserRepository;
 
 
 @SpringBootApplication
@@ -20,7 +22,7 @@ public class KirjakauppaApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData(BookRepository bookRepository, CategoryRepository categoryRepository) {
+	public CommandLineRunner initData(BookRepository bookRepository, CategoryRepository categoryRepository, UserRepository userRepository) {
 		return (args) -> {
 
 			// ...
@@ -45,6 +47,11 @@ public class KirjakauppaApplication {
 			bookRepository.save(a);
 			bookRepository.save(c);
 
+			User user1 = new User("user","user", "USER");
+			User user2 = new User("admin","admin","ADMIN");
+
+			userRepository.save(user1);
+			userRepository.save(user2);
 		};
 	}
 }

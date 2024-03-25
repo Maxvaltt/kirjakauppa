@@ -3,6 +3,7 @@ package com.example.kirjakauppa.domain;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,6 +51,7 @@ public class BookController {
     }
 
     @SuppressWarnings("null")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/deletebook/{id}")
     public String deleteBook(@PathVariable Long id) {
         bookRepository.deleteById(id);
@@ -58,10 +60,12 @@ public class BookController {
 
     @SuppressWarnings("null")
     @GetMapping("/editbook/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String showEditBookForm(@PathVariable Long id, Model model) {
         Optional<book> optionalBook = bookRepository.findById(id);
         if (optionalBook.isPresent()) {
             model.addAttribute("book", optionalBook.get());
+            model.addAttribute("categories",categoryRepository.findAll());
             return "editbook";
         } else {
             return "redirect:/booklist";
@@ -74,5 +78,4 @@ public class BookController {
         bookRepository.save(updatedBook);
         return "redirect:/booklist";
     }
-
 }

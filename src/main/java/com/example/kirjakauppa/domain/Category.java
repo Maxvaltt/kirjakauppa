@@ -2,6 +2,8 @@ package com.example.kirjakauppa.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +22,7 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "category")
+    @JsonIgnoreProperties("category")
     private List<book> books;
 
     public Category() {

@@ -29,10 +29,8 @@
           <td th:text="${book.category.name}"></td>
           
 
-            <td sec:authorize="hasAuthority('ADMIN')" th:action="@{/deletebook/{id}(id=${book.id})}" method="post">
-              <input type="submit" value="Delete" /></td>
-            <td sec:authorize="hasAuthority('ADMIN')" th:action="@{'/editbook/' + ${book.id}}" method="get">
-                <button type="submit">Edit</button></td>
+          <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{'/deletebook/' + ${book.id}}">Delete</a></td>
+          <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{'/editbook/' + ${book.id}}">Edit</a></td>
             
           
         </tr>   
